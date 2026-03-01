@@ -1,0 +1,25 @@
+# VoiceInput 依賴套件
+# 安裝方式：pip install -r requirements.txt
+
+# 音訊錄製
+sounddevice>=0.4.6
+numpy>=1.24.0
+
+# 全域快捷鍵 & 鍵盤模擬
+pynput>=1.7.6
+
+# 剪貼簿
+pyperclip>=1.8.2
+
+# 系統列圖示
+pystray>=0.19.4
+Pillow>=10.0.0
+
+# 本地語音辨識（Apple Silicon GPU 加速）
+mlx-whisper>=0.4.0
+
+# OpenAI（雲端 Whisper STT & GPT 後處理，可選）
+openai>=1.0.0
+
+# Anthropic（Claude 後處理）
+anthropic>=0.20.0
