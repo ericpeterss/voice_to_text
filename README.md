@@ -7,9 +7,11 @@
 
 ## ✨ 功能特色
 
-- **按住** `Option+Space`（Mac）/ `Alt+Space`（Windows）即時錄音，**放開**自動貼入
-- 使用 OpenAI Whisper 辨識，支援**中英混合語音**，自動判別語言
+- **按住**右 Command（Mac）/ 右 Ctrl（Windows）即時錄音，**放開**自動貼入
+- **本地辨識為預設**：使用 mlx-whisper 在 Apple Silicon 上 GPU 加速，語音辨識無需上傳雲端
+- 也可切換為 OpenAI Whisper API 雲端辨識，支援**中英混合語音**，自動判別語言
 - 使用 Claude / GPT 做智慧後處理：移除「嗯」「那個」等語助詞，整理句子通順
+- **自訂字典**：指定人名、專有名詞的正確寫法，辨識與後處理自動套用
 - 貼入**任意應用程式**：Slack、LINE、Word、瀏覽器、Terminal 等
 - 設定儲存在本機，API Key 不上傳
 - 打包後**免安裝**，雙擊執行
@@ -80,10 +82,12 @@ python build.py
 
 | 設定項目 | 說明 |
 |----------|------|
-| OpenAI API Key | **必填**，用於 Whisper 語音辨識 |
+| 語音辨識引擎 | 本地（mlx-whisper，預設）或雲端（OpenAI Whisper API） |
+| OpenAI API Key | 使用雲端辨識或 GPT 後處理時需要（本地辨識不需要） |
 | Anthropic API Key | 選填，用於 Claude 後處理（更好的中文整理） |
 | 啟用智慧後處理 | 開啟後自動移除語助詞、整理句子 |
 | 後處理模型 | 選 Claude（Anthropic）或 GPT-4o mini（OpenAI） |
+| 自訂字典 | 指定人名、專有名詞的正確寫法，一行一個詞 |
 
 取得 API Key：
 - OpenAI：https://platform.openai.com/api-keys
@@ -94,10 +98,10 @@ python build.py
 ## 📖 使用方式
 
 1. 在你想輸入文字的地方，**先點一下文字框**（讓它取得焦點）
-2. **按住** `Option+Space`（Mac）或 `Alt+Space`（Windows）
+2. **按住**右 Command（Mac）或右 Ctrl（Windows）
 3. 說話（可以中英混說）
 4. **放開**快捷鍵
-5. 等約 2~3 秒（API 處理時間），文字自動出現在文字框
+5. 等待處理完成（本地辨識約 1~2 秒，雲端約 2~3 秒），文字自動出現在文字框
 
 ### 系統列圖示顏色
 | 顏色 | 狀態 |
@@ -127,8 +131,8 @@ python build.py
 
 ## 💡 常見問題
 
-**Q：說話後沒有反應？**  
-A：檢查 OpenAI API Key 是否正確，以及麥克風權限是否已授予。
+**Q：說話後沒有反應？**
+A：確認麥克風權限已授予。若使用雲端辨識，檢查 OpenAI API Key 是否正確。
 
 **Q：文字沒有貼到正確位置？**  
 A：放開快捷鍵前，確認目標文字框已取得焦點（有游標閃爍）。
@@ -150,9 +154,12 @@ A：在 Finder 中右鍵點擊 VoiceInput.app → 開啟，或至「系統設定
 
 | 服務 | 費率 | 每月費用（估算）|
 |------|------|----------------|
-| Whisper API | $0.006 / 分鐘 | ~$1.8 |
-| Claude claude-opus-4-5（後處理）| ~$0.003 / 次 | ~$2 |
-| 合計 | | ~$4 / 月 |
+| 本地 mlx-whisper（預設） | 免費 | $0 |
+| Whisper API（雲端） | $0.006 / 分鐘 | ~$1.8 |
+| Claude Haiku（後處理） | ~$0.001 / 次 | ~$0.3 |
+| GPT-4o mini（後處理） | ~$0.001 / 次 | ~$0.3 |
+
+> 使用本地辨識 + Claude Haiku 後處理，每月約 $0.3。
 
 ---
 

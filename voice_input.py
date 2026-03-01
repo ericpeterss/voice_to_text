@@ -296,7 +296,7 @@ class StatusOverlay:
     def _update_mac(self, state: str, text: str):
         import subprocess as sp
         if state == 'recording':
-            sp.Popen(['afplay', '/System/Library/Sounds/Morse.aiff'])
+            sp.Popen(['afplay', '/System/Library/Sounds/Tink.aiff'])
         elif state == 'processing':
             sp.Popen(['afplay', '/System/Library/Sounds/Pop.aiff'])
         elif state == 'result':
